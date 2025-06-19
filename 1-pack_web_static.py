@@ -1,13 +1,23 @@
 #!/usr/bin/python3
 """
-Generates a .tgz archive from the contents of web_static
+This script defines a Fabric function to generate a .tgz archive from the
+web_static folder for deployment. The archive is stored inside the 'versions'
+directory with a timestamped filename.
 """
+
 from fabric.api import local
 from datetime import datetime
 import os
 
 def do_pack():
-    """Create .tgz archive from web_static"""
+    """
+    Generates a .tgz archive from the contents of the web_static folder.
+    The archive is stored in the versions/ directory and named using the
+    current timestamp (format: web_static_YYYYMMDDHHMMSS.tgz).
+
+    Returns:
+        The path to the created archive if successful, otherwise None.
+    """
     if not os.path.isdir("versions"):
         os.mkdir("versions")
     now = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -16,3 +26,4 @@ def do_pack():
     if result.failed:
         return None
     return file_path
+
