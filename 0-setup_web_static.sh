@@ -29,3 +29,4 @@ fi
 
 # Restart Nginx
 sudo service nginx restart
+
